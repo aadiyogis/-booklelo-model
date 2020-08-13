@@ -3,8 +3,6 @@ package com.booklelo.model.web;
 import com.booklelo.model.repositories.AuthorRepository;
 import com.booklelo.model.repositories.BookRepository;
 import com.booklelo.model.repositories.PublisherRepository;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,14 +34,16 @@ public class DataController {
 
 
     @GetMapping("/authors")
-    public ResponseEntity<?> getAllAuthors(Model model) {
-        return new ResponseEntity<>(authorRepository.findAll(), HttpStatus.OK);
+    public String getAllAuthors(Model model) {
+        model.addAttribute("authors", authorRepository.findAll());
+        return "authors/list";
     }
 
 
     @GetMapping("/publishers")
-    public ResponseEntity<?> getAllPublishers() {
-        return new ResponseEntity<>(publisherRepository.findAll(), HttpStatus.OK);
+    public String getAllPublishers(Model model) {
+        model.addAttribute("publishers", publisherRepository.findAll());
+        return "publishers/list";
     }
 
 }
